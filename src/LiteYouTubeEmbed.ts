@@ -124,6 +124,11 @@ export default defineComponent({
       required: false,
       default: 16,
     },
+    autoplay: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
   },
   emits: ['iframeAdded'],
   setup(props, { emit, expose }) {
@@ -148,8 +153,8 @@ export default defineComponent({
       ? 'https://www.youtube.com'
       : 'https://www.youtube-nocookie.com')
     const iframeSrc = computed(() => !props.playlist
-      ? `${ytUrl.value}/embed/${videoId.value}?autoplay=1&enablejsapi=1&state=1${mutedImp.value}${paramsImp.value}`
-      : `${ytUrl.value}/embed/videoseries?autoplay=1&enablejsapi=1&list=${videoId.value}${mutedImp.value}${paramsImp.value}`)
+      ? `${ytUrl.value}/embed/${videoId.value}?autoplay=${props.autoplay ? 1 : 0}&enablejsapi=1&state=1${mutedImp.value}${paramsImp.value}`
+      : `${ytUrl.value}/embed/videoseries?autoplay=${props.autoplay ? 1 : 0}&enablejsapi=1&list=${videoId.value}${mutedImp.value}${paramsImp.value}`)
 
     function addIframe() {
       if (iframe.value)
